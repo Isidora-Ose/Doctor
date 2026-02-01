@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Doctor 💙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Disable right-click and selection */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        img, video {
+            pointer-events: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+        }
+
+        /* Initial Popup */
+        #initial-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 1s ease-in;
+        }
+
+        #initial-popup.hidden {
+            animation: fadeOut 1s ease-out forwards;
+        }
+
+        .popup-content {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .popup-content h1 {
+            font-size: clamp(2em, 8vw, 4em);
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .popup-content p {
+            font-size: clamp(1em, 4vw, 1.5em);
+            color: #87CEEB;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: clamp(2em, 6vw, 3em);
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(45deg, #4A90E2, white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(74, 144, 226, 0.4);
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item video {
+            pointer-events: auto;
+        }
+
+        /* Click indicator */
+        .gallery-item::after {
+            content: '💭 Click for my thoughts';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 15px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #87CEEB;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Comment Modal */
+        .comment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .comment-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .comment-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #4A90E2;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comment-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            color: #87CEEB;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+
+        .comment-content .close-btn:hover {
+            color: #4A90E2;
+        }
+
+        .comment-content p {
+            font-size: clamp(1.1em, 3vw, 1.4em);
+            line-height: 1.8;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        /* Top Moments */
+        .moments-list {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .moment-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 5px solid #4A90E2;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .moment-card:hover {
+            transform: translateX(10px);
+        }
+
+        .moment-card h3 {
+            color: #87CEEB;
+            margin-bottom: 10px;
+            font-size: clamp(1.2em, 4vw, 1.5em);
+        }
+
+        .moment-card p {
+            font-size: clamp(0.95em, 3vw, 1.1em);
+            line-height: 1.6;
+        }
+
+        /* Final Section with Click Me Card */
+        #final-section {
+            padding: 80px 20px;
+        }
+
+        .final-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+
+        .click-me-card {
+            width: 280px;
+            height: 200px;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border-radius: 20px;
+            text-align: center;
+            padding: 40px 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .click-me-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+        }
+
+        .click-me-card:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 15px 50px rgba(74, 144, 226, 0.7);
+        }
+
+        .click-me-card h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .click-me-card p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fav-girl-beside {
+            text-align: center;
+        }
+
+        .fav-girl-beside img {
+            width: 250px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            border: 3px solid #4A90E2;
+        }
+
+        .fav-girl-beside p {
+            margin-top: 15px;
+            color: #87CEEB;
+            font-size: 1.2em;
+        }
+
+        /* Message Modal */
+        .message-modal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .message-modal.active {
+            display: flex;
+            animation: dramaticFadeIn 0.8s ease;
+        }
+
+        @keyframes dramaticFadeIn {
+            0% { 
+                opacity: 0;
+                backdrop-filter: blur(0px);
+            }
+            100% { 
+                opacity: 1;
+                backdrop-filter: blur(5px);
+            }
+        }
+
+        .message-content {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fbc2eb 100%);
+            color: #4a0e4e;
+            padding: 50px;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 25px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(255, 105, 180, 0.8), 
+                        0 0 100px rgba(255, 182, 193, 0.5);
+            animation: dramaticEntrance 1s ease;
+            overflow: hidden;
+        }
+
+        /* Glitter effect */
+        .message-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255, 192, 203, 0.6) 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px;
+            background-position: 0 0, 25px 25px;
+            animation: glitter 20s linear infinite;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Sparkle animation */
+        .message-content::after {
+            content: '✨';
+            position: absolute;
+            font-size: 3em;
+            animation: sparkle 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glitter {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { 
+                top: 10%;
+                left: 10%;
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% { 
+                top: 20%;
+                left: 15%;
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes dramaticEntrance {
+            0% { 
+                opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            75% {
+                transform: scale(0.95) rotate(-2deg);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .message-content .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 32px;
+            cursor: pointer;
+            color: #8b0f5e;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+            transition: all 0.3s;
+            z-index: 10;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .message-content .close-btn:hover {
+            color: #d946a6;
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .message-content h2 {
+            color: #8b0f5e;
+            margin-bottom: 25px;
+            font-size: clamp(1.5em, 5vw, 2.2em);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .message-content p {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #5a0a47;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        .message-content .ps {
+            font-style: italic;
+            color: #8b0f5e;
+            font-size: clamp(0.9em, 3vw, 1em);
+        }
+
+        .message-content .signature {
+            margin-top: 30px;
+            font-weight: bold;
+            color: #8b0f5e;
+            font-size: clamp(1.1em, 3vw, 1.3em);
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
+        }
+
+        .emoji {
+            font-size: 1.3em;
+        }
+
+        /* Upload Section */
+        .upload-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .upload-area {
+            border: 3px dashed #4A90E2;
+            padding: 50px 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: #87CEEB;
+        }
+
+        .upload-btn {
+            background: #4A90E2;
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #357ABD;
+            transform: scale(1.05);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #4A90E2;
+            transform: scale(1.5);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 15px;
+                min-height: auto;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .gallery-item img, .gallery-item video {
+                height: 200px;
+            }
+
+            .final-container {
+                gap: 30px;
+            }
+
+            .click-me-card {
+                width: 240px;
+                height: 180px;
+                padding: 30px 15px;
+            }
+
+            .fav-girl-beside img {
+                width: 200px;
+                height: 240px;
+            }
+
+            .comment-content, .message-content {
+                padding: 30px 20px;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+
+            .moment-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item img, .gallery-item video {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Initial Popup -->
+    <div id="initial-popup">
+        <div class="popup-content">
+            <h1>🎉 Happy Birthday My Doctor! 💙</h1>
+            <p>Click anywhere to continue...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="dot active" onclick="scrollToSection(0)"></div>
+        <div class="dot" onclick="scrollToSection(1)"></div>
+        <div class="dot" onclick="scrollToSection(2)"></div>
+        <div class="dot" onclick="scrollToSection(3)"></div>
+        <div class="dot" onclick="scrollToSection(4)"></div>
+        <div class="dot" onclick="scrollToSection(5)"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- His Memories Gallery -->
+        <section id="his-gallery">
+            <h2>Your Beautiful Memories 💙</h2>
+            <div class="gallery" id="his-gallery-grid">
+                <!-- Image 1 -->
+                <div class="gallery-item" data-comment="My cool doctor... 💙">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-01-18 at 17.23.41.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="gallery-item" data-comment="The cap in this ws hillarious baby ✨">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-01-18 at 17.32.32.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="gallery-item" data-comment="I love how happy you look here 😊, I def fell harder.">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.23.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="gallery-item" data-comment="This one always makes me smile 💭">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.27.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 5 -->
+                <div class="gallery-item" data-comment="You look so cute here 😍">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.45.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 6 -->
+                <div class="gallery-item" data-comment="You wearing my fav color 💖">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.55.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 7 -->
+                <div class="gallery-item" data-comment="I'm guessing this is samuel, the love of your life 👀✨">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.00.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 8 -->
+                <div class="gallery-item" data-comment="Cool dude 🥰">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.02.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 9 -->
+                <div class="gallery-item" data-comment="This captures your childlike nature 💙">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.05.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Image 10 -->
+                <div class="gallery-item" data-comment="My personal bad boy 🌟">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.48.08.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 1 -->
+                <div class="gallery-item" data-comment="Watching this never gets old... I love your laugh 😂💙">
+                    <video autoplay loop muted playsinline>
+                        <source src="WhatsApp Video 2026-02-01 at 22.48.06.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #5f72bd 0%, #9b23ea 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+    
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="gallery-item" data-comment="He was thinking about me🥹">
+                    <video autoplay loop muted playsinline>
+                        <source src="WhatsApp Video 2026-02-01 at 22.48.24.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #09203f 0%, #537895 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Video 2
+                        </div>
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Moments Section -->
+        <section id="moments-section">
+            <h2>✨ Top Moments ✨</h2>
+            <div class="moments-list">
+                <div class="moment-card">
+                    <h3>🌟 First Meeting</h3>
+                    <p>The day our paths crossed and everything changed...</p>
+                </div>
+                <div class="moment-card">
+                    <h3>💬 Late Night Conversations</h3>
+                    <p>Those talks that lasted until dawn, where we shared our dreams and fears...</p>
+                </div>
+                <div class="moment-card">
+                    <h3>😄 The Laughter</h3>
+                    <p>All those inside jokes and moments that made my cheeks hurt from smiling...</p>
+                </div>
+                <div class="moment-card">
+                    <h3>💙 The Little Things</h3>
+                    <p>Every small gesture that showed me who you really are...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favorite Girls Gallery -->
+        <section id="girls-gallery">
+            <h2>👧 Your Favorite Girls Gallery 💕</h2>
+            <div class="gallery" id="girls-gallery-grid">
+                <!-- Image 1 -->
+                <div class="gallery-item" data-comment="One of your favorites 💕">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="WhatsApp Image 2026-02-01 at 22.48.29.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 1 -->
+                <div class="gallery-item" data-comment="sexy princess😊">
+                    <video autoplay loop muted playsinline>
+                        <source src="sexy.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 1
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="gallery-item" data-comment="I have friends too🥰">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="friends.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="gallery-item" data-comment="This one is special 💙">
+                    <video autoplay loop muted playsinline>
+                        <source src="miracle.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 2
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="gallery-item" data-comment="she can be the mother of your kids 💕">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="mother.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="gallery-item" data-comment="She's your sexy dancer 😄">
+                    <video autoplay loop muted playsinline>
+                        <source src="go down.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 3
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="gallery-item" data-comment="pretty🌸">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="yoo.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="gallery-item" data-comment="I know i suck at dancing✨">
+                    <video autoplay loop muted playsinline>
+                        <source src="go down2.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 4
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Image 5 -->
+                <div class="gallery-item" data-comment="Isidora 💖">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="cool.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 5 -->
+                <div class="gallery-item" data-comment="Our first sticker 🥰">
+                    <video autoplay loop muted playsinline>
+                        <source src="our first sticker.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 5
+                        </div>
+                    </video>
+                </div>
+
+                <!-- Image 6 -->
+                <div class="gallery-item" data-comment="little cutie💙">
+                    <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #5f72bd 0%, #9b23ea 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                        <img src="well.jpeg" alt="">
+                    </div>
+                </div>
+
+                <!-- Video 6 -->
+                <div class="gallery-item" data-comment="You can laugh💕">
+                    <video autoplay loop muted playsinline>
+                        <source src="dance.mp4" type="video/mp4">
+                        <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #09203f 0%, #537895 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
+                            🎥 Girl Video 6
+                        </div>
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Section with Click Me Card -->
+        <section id="final-section">
+            <h2>💌 One More Thing... 💌</h2>
+            <div class="final-container">
+                <!-- Click Me Card -->
+                <div class="click-me-card" id="openCard">
+                    <h3>🎁 Click Me</h3>
+                    <p>A little message from me</p>
+                </div>
+
+                <!-- Favorite Girl Image beside the card -->
+                <div class="fav-girl-beside">
+                    <div style="width: 250px; height: 280px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3em; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); border: 3px solid #4A90E2;">
+                       <img src="baby.jpeg" alt="">
+                    </div>
+                    <p>Your favorite girl 💙</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload-section">
+            <h2>📤 Add More Memories</h2>
+            <div class="upload-container">
+                <p style="font-size: 1.2em; margin-bottom: 20px; color: #87CEEB;">Upload your photos and videos here, and they'll appear in our "New Memories Together" gallery below! 💙</p>
+                <div class="upload-area" onclick="document.getElementById('file-input').click()">
+                    <p style="font-size: 1.5em; margin-bottom: 10px;">📁</p>
+                    <p>Click to upload images or videos</p>
+                    <p style="font-size: 0.9em; color: #87CEEB; margin-top: 10px;">Drag and drop files here</p>
+                </div>
+                <input type="file" id="file-input" accept="image/*,video/*" multiple onchange="handleFileSelect(event)">
+            </div>
+        </section>
+
+        <!-- New Memories Together Section -->
+        <section id="new-memories-section" style="display: none;">
+            <h2>💕 New Memories Together 💕</h2>
+            <p style="font-size: 1.2em; margin-bottom: 30px; color: #87CEEB; text-align: center;">Our journey continues... ✨</p>
+            <div class="gallery" id="preview-container"></div>
+        </section>
+    </div>
+
+    <!-- Comment Modal -->
+    <div class="comment-modal" id="commentModal">
+        <div class="comment-content">
+            <button class="close-btn" onclick="closeCommentModal()">&times;</button>
+            <p id="commentText"></p>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="message-modal" id="messageModal">
+        <div class="message-content">
+            <button class="close-btn" onclick="closeMessageModal()">&times;</button>
+            <h2>Happy Birthday, My Cute Doctor 💙</h2>
+            <p>
+                Happy birthday my cute doctor, today's a special day because it's the day you came
+                into this world and I'm happy you did albeit a year late <span class="emoji">😂❤️</span>
+            </p>
+            <p>
+                Words can't begin to describe how much I truly care and how scared I am to lose you.
+                And how jealous I get because of your books, Samuel, and sometimes your bed <span class="emoji">😂</span>
+            </p>
+            <p>
+                I wish you the best birthday ever and I'm sorry I couldn't be there to spend it with you...
+            </p>
+            <p class="ps">
+                PS: My period came earlier than your birthday so this was completed in pain
+            </p>
+            <p class="signature">
+                💙 Your little Maltina bottle 💙
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable certain keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+               (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
+               (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Initial popup
+        document.getElementById('initial-popup').addEventListener('click', function() {
+            this.classList.add('hidden');
+            setTimeout(() => this.style.display = 'none', 1000);
+        });
+
+        // Gallery item click handlers
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const comment = this.getAttribute('data-comment');
+                document.getElementById('commentText').textContent = comment;
+                document.getElementById('commentModal').classList.add('active');
+            });
+        });
+
+        // Close comment modal
+        function closeCommentModal() {
+            document.getElementById('commentModal').classList.remove('active');
+        }
+
+        // Click me card opens message modal
+        document.getElementById('openCard').addEventListener('click', function() {
+            document.getElementById('messageModal').classList.add('active');
+        });
+
+        // Close message modal
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.remove('active');
+        }
+
+        // Close modals when clicking outside
+        document.getElementById('commentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCommentModal();
+            }
+        });
+
+        document.getElementById('messageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMessageModal();
+            }
+        });
+
+        // Smooth scroll to sections
+        function scrollToSection(index) {
+            const sections = document.querySelectorAll('section');
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+            
+            // Update active dot
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Update active dot on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const dots = document.querySelectorAll('.dot');
+            
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    if (dots[index]) dots[index].classList.add('active');
+                }
+            });
+        });
+
+        // File upload handling
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('preview-container');
+            const newMemoriesSection = document.getElementById('new-memories-section');
+            
+            // Show the new memories section if files are uploaded
+            if (files.length > 0) {
+                newMemoriesSection.style.display = 'flex';
+            }
+            
+            for (let file of files) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.setAttribute('data-comment', 'A new memory we created together... 💙');
+                    
+                    if (file.type.startsWith('image/')) {
+                        galleryItem.innerHTML = `<img src="${e.target.result}" alt="New Memory">`;
+                    } else if (file.type.startsWith('video/')) {
+                        galleryItem.innerHTML = `<video autoplay loop muted playsinline><source src="${e.target.result}" type="${file.type}"></video>`;
+                    }
+                    
+                    // Add click event for the new item
+                    galleryItem.addEventListener('click', function() {
+                        const comment = this.getAttribute('data-comment');
+                        document.getElementById('commentText').textContent = comment;
+                        document.getElementById('commentModal').classList.add('active');
+                    });
+                    
+                    previewContainer.appendChild(galleryItem);
+                    
+                    // Smooth scroll to new memories section
+                    setTimeout(() => {
+                        newMemoriesSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Drag and drop support
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(74, 144, 226, 0.2)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = '';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '';
+            
+            const files = e.dataTransfer.files;
+            document.getElementById('file-input').files = files;
+            handleFileSelect({ target: { files: files } });
+        });
+    </script>
+</body>
+</html>
