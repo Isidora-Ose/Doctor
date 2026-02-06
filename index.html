@@ -150,38 +150,6 @@
             pointer-events: auto;
         }
 
-        /* Video play overlay for mobile */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 5;
-        }
-
-        .video-overlay.show {
-            display: flex;
-        }
-
-        .play-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(74, 144, 226, 0.9);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            color: white;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        }
-
         /* Click indicator */
         .gallery-item::after {
             content: '💭 Click for my thoughts';
@@ -598,6 +566,110 @@
             display: none;
         }
 
+        /* Comment Input Modal for Uploads */
+        .comment-input-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10002;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .comment-input-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .comment-input-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #4A90E2;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .comment-input-content h3 {
+            color: #87CEEB;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .comment-input-content textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #4A90E2;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1em;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .comment-input-content textarea:focus {
+            outline: none;
+            border-color: #87CEEB;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .comment-input-content textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .comment-input-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .comment-input-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .comment-input-buttons .save-btn {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .comment-input-buttons .save-btn:hover {
+            background: #357ABD;
+            transform: scale(1.05);
+        }
+
+        .comment-input-buttons .cancel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .comment-input-buttons .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Preview thumbnail in comment input */
+        .preview-thumbnail {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
         /* Navigation Dots */
         .nav-dots {
             position: fixed;
@@ -704,89 +776,89 @@
             <h2>Your Beautiful Memories 💙</h2>
             <div class="gallery" id="his-gallery-grid">
                 <!-- Image 1 -->
-                <div class="gallery-item" data-comment="This moment captured my heart completely... 💙">
+                <div class="gallery-item" data-comment="My cool doctor... 💙">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 1
+                        <img src="WhatsApp Image 2026-01-18 at 17.23.41.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 2 -->
-                <div class="gallery-item" data-comment="Your smile in this photo makes everything brighter ✨">
+                <div class="gallery-item" data-comment="The cap in this ws hillarious baby ✨">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 2
+                        <img src="WhatsApp Image 2026-01-18 at 17.32.32.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 3 -->
-                <div class="gallery-item" data-comment="I love how happy you look here 😊">
+                <div class="gallery-item" data-comment="I love how happy you look here 😊, I def fell harder.">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 3
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.23.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 4 -->
                 <div class="gallery-item" data-comment="This one always makes me smile 💭">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 4
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.27.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 5 -->
-                <div class="gallery-item" data-comment="You looked so handsome that day 😍">
+                <div class="gallery-item" data-comment="You look so cute here 😍">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 5
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.45.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 6 -->
-                <div class="gallery-item" data-comment="A moment I'll treasure forever 💖">
+                <div class="gallery-item" data-comment="You wearing my fav color 💖">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 6
+                        <img src="WhatsApp Image 2026-02-01 at 22.45.55.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 7 -->
-                <div class="gallery-item" data-comment="Your eyes tell such a beautiful story here 👀✨">
+                <div class="gallery-item" data-comment="I'm guessing this is samuel, the love of your life 👀✨">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 7
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.00.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 8 -->
-                <div class="gallery-item" data-comment="I can't stop looking at this one 🥰">
+                <div class="gallery-item" data-comment="Cool dude 🥰">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 8
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.02.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 9 -->
-                <div class="gallery-item" data-comment="This captures who you really are 💙">
+                <div class="gallery-item" data-comment="This captures your childlike nature 💙">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 9
+                        <img src="WhatsApp Image 2026-02-01 at 22.46.05.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Image 10 -->
-                <div class="gallery-item" data-comment="Perfect in every way 🌟">
+                <div class="gallery-item" data-comment="My personal bad boy 🌟">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Photo 10
+                        <img src="WhatsApp Image 2026-02-01 at 22.48.08.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 1 -->
                 <div class="gallery-item" data-comment="Watching this never gets old... I love your laugh 😂💙">
                     <video autoplay loop muted playsinline>
-                        <source src="video1.mp4" type="video/mp4">
+                        <source src="WhatsApp Video 2026-02-01 at 22.48.06.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #5f72bd 0%, #9b23ea 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                            🎥 Video 1
+    
                         </div>
                     </video>
                 </div>
 
                 <!-- Video 2 -->
-                <div class="gallery-item" data-comment="This video makes my heart so happy every single time 🥹">
+                <div class="gallery-item" data-comment="He was thinking about me🥹">
                     <video autoplay loop muted playsinline>
-                        <source src="video2.mp4" type="video/mp4">
+                        <source src="WhatsApp Video 2026-02-01 at 22.48.24.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #09203f 0%, #537895 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Video 2
                         </div>
@@ -825,14 +897,14 @@
                 <!-- Image 1 -->
                 <div class="gallery-item" data-comment="One of your favorites 💕">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 1
+                        <img src="WhatsApp Image 2026-02-01 at 22.48.29.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 1 -->
-                <div class="gallery-item" data-comment="This video always makes you smile 😊">
+                <div class="gallery-item" data-comment="sexy princess😊">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video1.mp4" type="video/mp4">
+                        <source src="sexy.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 1
                         </div>
@@ -840,16 +912,16 @@
                 </div>
 
                 <!-- Image 2 -->
-                <div class="gallery-item" data-comment="She's adorable 🥰">
+                <div class="gallery-item" data-comment="I have friends too🥰">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 2
+                        <img src="friends.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 2 -->
                 <div class="gallery-item" data-comment="This one is special 💙">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video2.mp4" type="video/mp4">
+                        <source src="miracle.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 2
                         </div>
@@ -857,16 +929,16 @@
                 </div>
 
                 <!-- Image 3 -->
-                <div class="gallery-item" data-comment="I love this moment 💕">
+                <div class="gallery-item" data-comment="she can be the mother of your kids 💕">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 3
+                        <img src="mother.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 3 -->
-                <div class="gallery-item" data-comment="So much joy in this one 😄">
+                <div class="gallery-item" data-comment="She's your sexy dancer 😄">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video3.mp4" type="video/mp4">
+                        <source src="go down.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 3
                         </div>
@@ -874,16 +946,16 @@
                 </div>
 
                 <!-- Image 4 -->
-                <div class="gallery-item" data-comment="Beautiful memories 🌸">
+                <div class="gallery-item" data-comment="pretty🌸">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 4
+                        <img src="yoo.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 4 -->
-                <div class="gallery-item" data-comment="This video captures everything perfectly ✨">
+                <div class="gallery-item" data-comment="I know i suck at dancing✨">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video4.mp4" type="video/mp4">
+                        <source src="go down2.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 4
                         </div>
@@ -891,16 +963,16 @@
                 </div>
 
                 <!-- Image 5 -->
-                <div class="gallery-item" data-comment="Precious 💖">
+                <div class="gallery-item" data-comment="Isidora 💖">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 5
+                        <img src="cool.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 5 -->
-                <div class="gallery-item" data-comment="Love this 🥰">
+                <div class="gallery-item" data-comment="Our first sticker 🥰">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video5.mp4" type="video/mp4">
+                        <source src="our first sticker.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 5
                         </div>
@@ -908,16 +980,16 @@
                 </div>
 
                 <!-- Image 6 -->
-                <div class="gallery-item" data-comment="Can't get enough of this 💙">
+                <div class="gallery-item" data-comment="little cutie💙">
                     <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #5f72bd 0%, #9b23ea 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
-                        📸 Girl 6
+                        <img src="well.jpeg" alt="">
                     </div>
                 </div>
 
                 <!-- Video 6 -->
-                <div class="gallery-item" data-comment="Forever favorites 💕">
+                <div class="gallery-item" data-comment="You can laugh💕">
                     <video autoplay loop muted playsinline>
-                        <source src="girl-video6.mp4" type="video/mp4">
+                        <source src="dance.mp4" type="video/mp4">
                         <div style="width: 100%; height: 320px; background: linear-gradient(135deg, #09203f 0%, #537895 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em;">
                             🎥 Girl Video 6
                         </div>
@@ -939,7 +1011,7 @@
                 <!-- Favorite Girl Image beside the card -->
                 <div class="fav-girl-beside">
                     <div style="width: 250px; height: 280px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3em; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); border: 3px solid #4A90E2;">
-                        💕 Your Favorite Girl
+                       <img src="baby.jpeg" alt="">
                     </div>
                     <p>Your favorite girl 💙</p>
                 </div>
@@ -950,7 +1022,7 @@
         <section id="upload-section">
             <h2>📤 Add More Memories</h2>
             <div class="upload-container">
-                <p style="font-size: 1.2em; margin-bottom: 20px; color: #87CEEB;">Upload your photos and videos here, and they'll appear in our "New Memories Together" gallery below! 💙</p>
+                <p style="font-size: 1.2em; margin-bottom: 20px; color: #87CEEB;">Upload your photos and videos here, add your thoughts, and they'll appear in our "New Memories Together" gallery below! 💙</p>
                 <div class="upload-area" onclick="document.getElementById('file-input').click()">
                     <p style="font-size: 1.5em; margin-bottom: 10px;">📁</p>
                     <p>Click to upload images or videos</p>
@@ -976,6 +1048,20 @@
         </div>
     </div>
 
+    <!-- Comment Input Modal for Uploads -->
+    <div class="comment-input-modal" id="commentInputModal">
+        <div class="comment-input-content">
+            <h3>💭 Add Your Thoughts</h3>
+            <img id="previewThumbnail" class="preview-thumbnail" style="display: none;">
+            <video id="previewVideoThumbnail" class="preview-thumbnail" style="display: none;" muted></video>
+            <textarea id="commentInput" placeholder="What makes this memory special? Share your thoughts here... 💙" maxlength="500"></textarea>
+            <div class="comment-input-buttons">
+                <button class="save-btn" onclick="saveComment()">Save & Add 💙</button>
+                <button class="cancel-btn" onclick="cancelComment()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Message Modal -->
     <div class="message-modal" id="messageModal">
         <div class="message-content">
@@ -983,7 +1069,7 @@
             <h2>Happy Birthday, My Cute Doctor 💙</h2>
             <p>
                 Happy birthday my cute doctor, today's a special day because it's the day you came
-                into this world and I'm happy you did albeit a year late <span class="emoji">🐶😂❤️</span>
+                into this world and I'm happy you did albeit a year late <span class="emoji">😂❤️</span>
             </p>
             <p>
                 Words can't begin to describe how much I truly care and how scared I am to lose you.
@@ -1001,67 +1087,15 @@
         </div>
     </div>
 
-    <!-- Custom Comment Input Modal -->
-    <div class="message-modal" id="commentInputModal">
-        <div class="message-content" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); max-width: 500px;">
-            <button class="close-btn" onclick="closeCommentInput()" style="color: #87CEEB;">&times;</button>
-            <h2 style="color: #4A90E2;">Add Your Thoughts 💭</h2>
-            <p style="color: #87CEEB; font-size: 1em; margin-bottom: 20px;">What does this memory mean to you?</p>
-            <textarea id="customCommentInput" 
-                      placeholder="Type your comment here..." 
-                      style="width: 100%; 
-                             min-height: 120px; 
-                             padding: 15px; 
-                             border-radius: 10px; 
-                             border: 2px solid #4A90E2; 
-                             background: rgba(255, 255, 255, 0.1); 
-                             color: white; 
-                             font-size: 1em; 
-                             font-family: inherit; 
-                             resize: vertical;
-                             margin-bottom: 20px;"></textarea>
-            <button onclick="saveCustomComment()" 
-                    style="background: #4A90E2; 
-                           color: white; 
-                           border: none; 
-                           padding: 12px 30px; 
-                           border-radius: 25px; 
-                           cursor: pointer; 
-                           font-size: 1em;
-                           transition: all 0.3s;"
-                    onmouseover="this.style.background='#357ABD'" 
-                    onmouseout="this.style.background='#4A90E2'">
-                Save Comment ✓
-            </button>
-        </div>
-    </div>
-
     <script>
         // Disable right-click
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Disable certain keyboard shortcuts (more comprehensive)
+        // Disable certain keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+Shift+C
-            if(e.keyCode == 123 || 
-               (e.ctrlKey && e.shiftKey && e.keyCode == 73) || // Ctrl+Shift+I
-               (e.ctrlKey && e.shiftKey && e.keyCode == 74) || // Ctrl+Shift+J
-               (e.ctrlKey && e.shiftKey && e.keyCode == 67) || // Ctrl+Shift+C
-               (e.ctrlKey && e.keyCode == 85) || // Ctrl+U
-               (e.ctrlKey && e.keyCode == 83)) { // Ctrl+S
-                e.preventDefault();
-                return false;
-            }
-        });
-
-        // Disable text selection on double click and triple click
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable drag for all images and videos
-        document.addEventListener('dragstart', function(e) {
-            if(e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+               (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
+               (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
                 e.preventDefault();
                 return false;
             }
@@ -1080,74 +1114,6 @@
                 document.getElementById('commentText').textContent = comment;
                 document.getElementById('commentModal').classList.add('active');
             });
-        });
-
-        // Mobile video autoplay fix
-        function setupVideoAutoplay() {
-            const videos = document.querySelectorAll('video');
-            
-            videos.forEach(video => {
-                const parent = video.closest('.gallery-item');
-                
-                // Try to autoplay
-                const playPromise = video.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        // Autoplay was blocked, show play overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'video-overlay show';
-                        overlay.innerHTML = '<div class="play-icon">▶</div>';
-                        
-                        parent.style.position = 'relative';
-                        parent.appendChild(overlay);
-                        
-                        overlay.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            video.play();
-                            overlay.classList.remove('show');
-                            setTimeout(() => overlay.remove(), 300);
-                        });
-                    });
-                }
-            });
-        }
-
-        // Pause videos when off-screen (Intersection Observer)
-        function setupVideoObserver() {
-            const videos = document.querySelectorAll('video');
-            
-            const options = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.25 // Video needs to be 25% visible
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const video = entry.target;
-                    
-                    if (entry.isIntersecting) {
-                        // Video is visible, play it
-                        video.play().catch(() => {
-                            // If autoplay fails, do nothing (overlay will handle it)
-                        });
-                    } else {
-                        // Video is off-screen, pause it
-                        video.pause();
-                    }
-                });
-            }, options);
-            
-            videos.forEach(video => {
-                observer.observe(video);
-            });
-        }
-
-        // Initialize video features
-        window.addEventListener('load', () => {
-            setupVideoAutoplay();
-            setupVideoObserver();
         });
 
         // Close comment modal
@@ -1203,56 +1169,64 @@
             });
         });
 
-        // File upload handling with custom comment input
+        // Store pending file data
         let pendingFileData = null;
-        
+        let pendingFileType = null;
+
+        // File upload handling - now with comment input
         function handleFileSelect(event) {
             const files = event.target.files;
             
-            if (files.length === 0) return;
-            
-            // Process files one by one with custom comments
-            processNextFile(files, 0);
+            if (files.length > 0) {
+                // Process files one by one
+                processNextFile(files, 0);
+            }
         }
-        
+
         function processNextFile(files, index) {
-            if (index >= files.length) return;
-            
+            if (index >= files.length) {
+                // All files processed
+                document.getElementById('file-input').value = ''; // Reset input
+                return;
+            }
+
             const file = files[index];
             const reader = new FileReader();
             
             reader.onload = function(e) {
-                // Store the file data temporarily
-                pendingFileData = {
-                    fileResult: e.target.result,
-                    fileType: file.type,
-                    files: files,
-                    currentIndex: index
-                };
+                pendingFileData = e.target.result;
+                pendingFileType = file.type;
+
+                // Show preview thumbnail
+                const imgPreview = document.getElementById('previewThumbnail');
+                const videoPreview = document.getElementById('previewVideoThumbnail');
+                
+                if (file.type.startsWith('image/')) {
+                    imgPreview.src = pendingFileData;
+                    imgPreview.style.display = 'block';
+                    videoPreview.style.display = 'none';
+                } else if (file.type.startsWith('video/')) {
+                    videoPreview.src = pendingFileData;
+                    videoPreview.style.display = 'block';
+                    imgPreview.style.display = 'none';
+                }
+
+                // Clear previous comment
+                document.getElementById('commentInput').value = '';
                 
                 // Show comment input modal
                 document.getElementById('commentInputModal').classList.add('active');
+                
+                // Store reference to remaining files and current index
+                pendingFileData.filesArray = files;
+                pendingFileData.currentIndex = index;
             };
             
             reader.readAsDataURL(file);
         }
-        
-        function closeCommentInput() {
-            document.getElementById('commentInputModal').classList.remove('active');
-            document.getElementById('customCommentInput').value = '';
-            pendingFileData = null;
-        }
-        
-        function saveCustomComment() {
-            const comment = document.getElementById('customCommentInput').value.trim();
-            
-            if (!comment) {
-                alert('Please enter a comment for this memory! 💙');
-                return;
-            }
-            
-            if (!pendingFileData) return;
-            
+
+        function saveComment() {
+            const comment = document.getElementById('commentInput').value.trim() || 'A new memory we created together... 💙';
             const previewContainer = document.getElementById('preview-container');
             const newMemoriesSection = document.getElementById('new-memories-section');
             
@@ -1264,10 +1238,10 @@
             galleryItem.className = 'gallery-item';
             galleryItem.setAttribute('data-comment', comment);
             
-            if (pendingFileData.fileType.startsWith('image/')) {
-                galleryItem.innerHTML = `<img src="${pendingFileData.fileResult}" alt="New Memory" style="object-fit: contain;">`;
-            } else if (pendingFileData.fileType.startsWith('video/')) {
-                galleryItem.innerHTML = `<video autoplay loop muted playsinline style="object-fit: contain;"><source src="${pendingFileData.fileResult}" type="${pendingFileData.fileType}"></video>`;
+            if (pendingFileType.startsWith('image/')) {
+                galleryItem.innerHTML = `<img src="${pendingFileData}" alt="New Memory" style="object-fit: contain;">`;
+            } else if (pendingFileType.startsWith('video/')) {
+                galleryItem.innerHTML = `<video autoplay loop muted playsinline style="object-fit: contain;"><source src="${pendingFileData}" type="${pendingFileType}"></video>`;
             }
             
             // Add click event for the new item
@@ -1279,59 +1253,50 @@
             
             previewContainer.appendChild(galleryItem);
             
-            // Set up video autoplay and observer for new videos
-            if (pendingFileData.fileType.startsWith('video/')) {
-                const video = galleryItem.querySelector('video');
-                
-                // Try autoplay
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        const overlay = document.createElement('div');
-                        overlay.className = 'video-overlay show';
-                        overlay.innerHTML = '<div class="play-icon">▶</div>';
-                        galleryItem.style.position = 'relative';
-                        galleryItem.appendChild(overlay);
-                        
-                        overlay.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            video.play();
-                            overlay.classList.remove('show');
-                            setTimeout(() => overlay.remove(), 300);
-                        });
-                    });
-                }
-                
-                // Add to Intersection Observer
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            video.play().catch(() => {});
-                        } else {
-                            video.pause();
-                        }
-                    });
-                }, { threshold: 0.25 });
-                
-                observer.observe(video);
-            }
+            // Close comment input modal
+            document.getElementById('commentInputModal').classList.remove('active');
             
             // Smooth scroll to new memories section
             setTimeout(() => {
                 newMemoriesSection.scrollIntoView({ behavior: 'smooth' });
             }, 300);
+
+            // Process next file if any
+            const filesArray = pendingFileData.filesArray;
+            const currentIndex = pendingFileData.currentIndex;
+            if (filesArray && currentIndex !== undefined) {
+                processNextFile(filesArray, currentIndex + 1);
+            }
             
-            // Close modal and clear input
-            closeCommentInput();
+            // Clear pending data
+            pendingFileData = null;
+            pendingFileType = null;
+        }
+
+        function cancelComment() {
+            // Close comment input modal
+            document.getElementById('commentInputModal').classList.add('active');
             
             // Process next file if any
-            const nextIndex = pendingFileData.currentIndex + 1;
-            if (nextIndex < pendingFileData.files.length) {
-                setTimeout(() => {
-                    processNextFile(pendingFileData.files, nextIndex);
-                }, 500);
+            const filesArray = pendingFileData.filesArray;
+            const currentIndex = pendingFileData.currentIndex;
+            if (filesArray && currentIndex !== undefined) {
+                processNextFile(filesArray, currentIndex + 1);
             }
+            
+            // Clear pending data
+            pendingFileData = null;
+            pendingFileType = null;
+            
+            document.getElementById('commentInputModal').classList.remove('active');
         }
+
+        // Close comment input modal when clicking outside
+        document.getElementById('commentInputModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cancelComment();
+            }
+        });
 
         // Drag and drop support
         const uploadArea = document.querySelector('.upload-area');
